@@ -1,10 +1,16 @@
+<!--This is our top-level component -->
+<!--Its state will be our source of truth, and it's equivalent to BudgetPlanning.js in the React version of this app -->
+
+<!--This template is how we control what a component looks like when it's rendered -->
 <template>
   <div class='container'>
     <div class='row'>
       <div class='col-third'>
+        <!-- Asking for a Budget component and binding a "budget" property to it -->
         <Budget v-bind:budget="budget" />
       </div>
       <div class='col-third'>
+        <!-- Asking for an Expenses component and binding an "expenses" property to it, and adding two event listeners for add-exp and del-exp events which should fire addExpense and delExpense, respectively -->
         <Expenses 
           v-bind:expenses="expenses"
           v-on:add-exp="addExpense"
@@ -57,6 +63,9 @@ export default {
     SpendingSummary,
   },
   methods: {
+    // Add any "class methods" this component should have to manipulate data or react to user input
+    // Methods add and remove expenses and incomes from the App's state
+    // Vue seems to let us directly manipulate its state values
     addExpense(newAmount) {
       const id = uuidv4();
       this.expenses = [...this.expenses, {id: id, amount: parseInt(newAmount)}];
@@ -72,6 +81,7 @@ export default {
       this.income = this.income.filter(income => income.id !== id);
     },
   },
+  // This data() method needs to return an Object that represents the components initial state
   data() {
     return {
       budget: [
@@ -125,6 +135,7 @@ export default {
 }
 </script>
 
+<!--Styling for the app goes here --> 
 <style>
 * {
   box-sizing: border-box;

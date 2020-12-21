@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Your budget</h2>
-        <ul v-bind:key="item.id" v-for="item in budget">
+        <ul v-for="item in budget" v-bind:key="item.id">
             <li>{{item.title}}: ${{item.amount}}</li>
         </ul>
     </div>
@@ -10,6 +10,7 @@
 <script>
 export default {
     name: "Budget",
+    // Vue requires you to formally declare the props a component receives
     props: ["budget"]
 }
 </script>

@@ -17,6 +17,7 @@ export default {
     //         budgetDiff: 0,
     //     }
     // },
+    // I had to experiment with how to dynamically calculate this 'budgetDiff' value based on the component's props. This 'computed' lifecycle method seemed to work, other things I tried are commented out, but I'm not 100% sure this is the correct way to do this with Vue.
     computed: {
         budgetDiff: function() {
             let totalBudget = 0;
