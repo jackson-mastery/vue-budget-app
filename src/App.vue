@@ -3,43 +3,57 @@
 
 <!--This template is how we control what a component looks like when it's rendered -->
 <template>
-  <div class='container'>
-    <div class='row'>
-      <div class='col-third'>
-        <!-- Asking for a Budget component and binding a "budget" property to it -->
-        <Budget v-bind:budget="budget" />
+  <div>
+    <div class='container'>
+      <div class='row'>
+        <div class='col-third'>
+          <!-- Asking for a Budget component and binding a "budget" property to it -->
+          <Budget v-bind:budget="budget" />
+        </div>
+        <div class='col-third'>
+          <!-- Asking for an Expenses component and binding an "expenses" property to it, and adding two event listeners for add-exp and del-exp events which should fire addExpense and delExpense, respectively -->
+          <Expenses 
+            v-bind:expenses="expenses"
+            v-on:add-exp="addExpense"
+            v-on:del-exp="delExpense" 
+          />
+        </div>
+        <div class='col-third'>
+          <Income 
+            v-bind:income="income"
+            v-on:add-inc="addIncome"
+            v-on:del-inc="delIncome"
+          />
+        </div>
       </div>
-      <div class='col-third'>
-        <!-- Asking for an Expenses component and binding an "expenses" property to it, and adding two event listeners for add-exp and del-exp events which should fire addExpense and delExpense, respectively -->
-        <Expenses 
-          v-bind:expenses="expenses"
-          v-on:add-exp="addExpense"
-          v-on:del-exp="delExpense" 
-        />
+      <hr style='margin: 2rem 0'>
+      <div class='row'>
+        <div class='col-full'>
+          <BudgetSummary 
+            v-bind:budget="budget"
+            v-bind:expenses="expenses" 
+          />
+        </div>
       </div>
-      <div class='col-third'>
-        <Income 
-          v-bind:income="income"
-          v-on:add-inc="addIncome"
-          v-on:del-inc="delIncome"
-        />
+      <div class='row'>
+        <div class='col-full'>
+          <SpendingSummary 
+            v-bind:expenses="expenses"
+            v-bind:income="income" 
+          />
+        </div>
       </div>
     </div>
-    <hr style='margin: 2rem 0'>
-    <div class='row'>
-      <div class='col-full'>
-        <BudgetSummary 
-          v-bind:budget="budget"
-          v-bind:expenses="expenses" 
-        />
-      </div>
-    </div>
-    <div class='row'>
-      <div class='col-full'>
-        <SpendingSummary 
-          v-bind:expenses="expenses"
-          v-bind:income="income" 
-        />
+    <div class='container'>
+      <div class='row'>
+        <div style='display: flex; flex-direction: column;' class='col col-auto'>
+          <router-link to='/'>Overview</router-link>
+          <router-link to='/budget'>Budget</router-link>
+          <router-link to='/expenses'>Expenses</router-link>
+          <router-link to='/income'>Income</router-link>
+          <p>{{ stateTest }}</p>
+        </div>
+        <router-view class='col' />
       </div>
     </div>
   </div>
@@ -80,6 +94,11 @@ export default {
     delIncome(id) {
       this.income = this.income.filter(income => income.id !== id);
     },
+  },
+  computed: {
+    stateTest () {
+      return this.$store.state.budget;
+    }
   },
   // This data() method needs to return an Object that represents the components initial state
   data() {
@@ -192,12 +211,27 @@ body {
 .col-third,
 .col-half,
 .col-two-thirds,
-.col-full {
+.col-full,
+.col {
   position: relative;
   width: 100%;
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
+}
+
+.col {
+	-ms-flex-preferred-size: 0;
+	flex-basis: 0;
+	-webkit-box-flex: 1;
+	-ms-flex-positive: 1;
+	flex-grow: 1;
+	max-width: 100%;
+}
+
+.col-auto {
+  flex: 0 0 auto;
+  width: auto;
 }
 
 </style>
