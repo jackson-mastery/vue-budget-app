@@ -8,39 +8,26 @@
       <div class='row'>
         <div class='col-third'>
           <!-- Asking for a Budget component and binding a "budget" property to it -->
-          <Budget v-bind:budget="budget" />
+          <!-- <Budget v-bind:budget="budget" /> -->
+          <Budget />
         </div>
         <div class='col-third'>
           <!-- Asking for an Expenses component and binding an "expenses" property to it, and adding two event listeners for add-exp and del-exp events which should fire addExpense and delExpense, respectively -->
-          <Expenses 
-            v-bind:expenses="expenses"
-            v-on:add-exp="addExpense"
-            v-on:del-exp="delExpense" 
-          />
+          <Expenses />
         </div>
         <div class='col-third'>
-          <Income 
-            v-bind:income="income"
-            v-on:add-inc="addIncome"
-            v-on:del-inc="delIncome"
-          />
+          <Income />
         </div>
       </div>
       <hr style='margin: 2rem 0'>
       <div class='row'>
         <div class='col-full'>
-          <BudgetSummary 
-            v-bind:budget="budget"
-            v-bind:expenses="expenses" 
-          />
+          <BudgetSummary />
         </div>
       </div>
       <div class='row'>
         <div class='col-full'>
-          <SpendingSummary 
-            v-bind:expenses="expenses"
-            v-bind:income="income" 
-          />
+          <SpendingSummary />
         </div>
       </div>
     </div>
@@ -51,7 +38,6 @@
           <router-link to='/budget'>Budget</router-link>
           <router-link to='/expenses'>Expenses</router-link>
           <router-link to='/income'>Income</router-link>
-          <p>{{ stateTest }}</p>
         </div>
         <router-view class='col' />
       </div>
@@ -61,11 +47,16 @@
 
 <script>
 import { v4 as uuidv4 } from 'uuid';
-import Budget from './components/Budget';
-import Expenses from './components/Expenses';
-import Income from './components/Income';
-import BudgetSummary from './components/BudgetSummary';
-import SpendingSummary from './components/SpendingSummary';
+// import Budget from './components/Budget';
+import Budget from './views/Budget';
+// import Expenses from './components/Expenses';
+import Expenses from './views/Expenses';
+// import Income from './components/Income';
+import Income from './views/Income';
+// import BudgetSummary from './components/BudgetSummary';
+import BudgetSummary from './views/BudgetSummary';
+// import SpendingSummary from './components/SpendingSummary';
+import SpendingSummary from './views/SpendingSummary';
 
 export default {
   name: 'App',
@@ -94,11 +85,6 @@ export default {
     delIncome(id) {
       this.income = this.income.filter(income => income.id !== id);
     },
-  },
-  computed: {
-    stateTest () {
-      return this.$store.state.budget;
-    }
   },
   // This data() method needs to return an Object that represents the components initial state
   data() {
