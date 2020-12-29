@@ -6,11 +6,13 @@
   <div>
     <div class='container'>
       <div class='row' style='margin-top:2rem'>
-        <div style='display: flex; flex-direction: column;' class='col col-auto'>
-          <router-link to='/'>Overview</router-link>
-          <router-link to='/budget'>Budget</router-link>
-          <router-link to='/expenses'>Expenses</router-link>
-          <router-link to='/income'>Income</router-link>
+        <div class='col col-auto'>
+          <div class='nav-items'>
+            <router-link class='nav-item' to='/'>Overview</router-link>
+            <router-link class='nav-item' to='/budget'>Budget</router-link>
+            <router-link class='nav-item' to='/expenses'>Expenses</router-link>
+            <router-link class='nav-item' to='/income'>Income</router-link>
+          </div>
         </div>
         <router-view class='col' />
       </div>
@@ -102,6 +104,21 @@ body {
 .col-auto {
   flex: 0 0 auto;
   width: auto;
+}
+
+.nav-items {
+  display: flex;
+  flex-direction: column;
+  border: 0.5px solid #a0a0a0;
+  border-radius: 5px;
+}
+.nav-item {
+  text-decoration: none;
+  border-bottom: 0.5px solid #a0a0a0;
+  padding: 0.25rem 1rem;
+}
+.nav-item:last-child {
+  border-bottom: none;
 }
 
 </style>
