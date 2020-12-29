@@ -10,7 +10,6 @@
 <script>
 export default {
     name: "BudgetSummary",
-    // props: ["budget", "expenses"],
     computed: {
         budgetDiff: function() {
             let totalBudget = 0;
