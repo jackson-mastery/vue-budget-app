@@ -53,16 +53,42 @@ const store = createStore({
     }
   },
   mutations: {
+    addBudget (state, newItem) {
+      const id = uuidv4();
+      state.budget = [
+        ...state.budget,
+        {
+          id: id,
+          title: newItem.nextCategory,
+          amount: parseInt(newItem.nextAmount),
+        },
+      ]
+    },
+    delBudget (state, id) {
+      state.budget = state.budget.filter(item => item.id !== id);
+    },
     addExpense (state, newAmount) {
       const id = uuidv4();
-      state.expenses = [...state.expenses, {id: id, amount: parseInt(newAmount)}];
+      state.expenses = [
+        ...state.expenses, 
+        {
+          id: id, 
+          amount: parseInt(newAmount)
+        }
+      ];
     },
     delExpense (state, id) {
       state.expenses = state.expenses.filter(expense => expense.id !== id);
     },
     addIncome (state, newAmount) {
       const id = uuidv4();
-      state.income = [...state.income, {id: id, amount: parseInt(newAmount)}];
+      state.income = [
+        ...state.income, 
+        {
+          id: id, 
+          amount: parseInt(newAmount)
+        }
+      ];
     },
     delIncome (state, id) {
       state.income = state.income.filter(income => income.id !== id);
