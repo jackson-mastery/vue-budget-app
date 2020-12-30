@@ -2,6 +2,7 @@
 node_modules
 /dist
 __pycache__/
+*.sqlite3
 
 
 # local env files
