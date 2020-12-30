@@ -1,58 +1,106 @@
 import { createStore } from 'vuex'
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 const store = createStore({
   state () {
     return {
-      budget: [
-        {
-          id: 0,
-          title: "Food",
-          amount: 400,
-        },
-        {
-          id: 1,
-          title: "Gas",
-          amount: 50,
-        },
-        {
-          id: 2,
-          title: "Rent",
-          amount: 650,
-        },
-        {
-          id: 3,
-          title: "Extras",
-          amount: 300,
-        },
-      ],
-      expenses: [
-        {
-          id: 1,
-          amount: 150,
-        },
-        {
-          id: 2,
-          amount: 276,
-        },
-        {
-          id: 3,
-          amount: 89,
-        },
-      ],
-      income: [
-        {
-          id: 1,
-          amount: 1500,
-        },
-        {
-          id: 2,
-          amount: 3400,
-        },
-      ],
+      budget: [],
+      expenses: [],
+      income: [],
     }
   },
+  actions: {
+    init (context) {
+      context.dispatch('getBudgetItems');
+      context.dispatch('getCategoryItems');
+      context.dispatch('getIncomeItems');
+      context.dispatch('getExpenseItems');
+    },
+    getBudgetItems (context) {
+      axios.get('http://localhost:8000/budget_items/')
+      .then(res => {
+        context.commit('storeSetBudget', res.data);
+      })
+      .catch(err => {
+        context.commit('storeSetBudgetError', err);
+      });
+    },
+    getCategoryItems (context) {
+      axios.get('http://localhost:8000/category/')
+      .then(res => {
+        context.commit('storeSetCategories', res.data);
+      })
+      .catch(err => {
+        context.commit('storeSetCategoriesError', err);
+      });
+    },
+    getIncomeItems (context) {
+      axios.get('http://localhost:8000/income/')
+      .then(res => {
+        context.commit('storeSetIncome', res.data);
+      })
+      .catch(err => {
+        context.commit('storeSetIncomeError', err);
+      });
+    },
+    getExpenseItems (context) {
+      axios.get('http://localhost:8000/expenses/')
+      .then(res => {
+        context.commit('storeSetExpenses', res.data);
+      })
+      .catch(err => {
+        context.commit('storeSetExpensesError', err);
+      });
+    },
+    postBudgetItem (context, item) {
+      axios.post('http://localhost:8000/budget_items/', item)
+      .then(() => {
+        context.dispatch('getBudgetItems');
+      });
+    },
+    postIncomeItem (context, item) {
+      axios.post('http://localhost:8000/income/', item)
+      .then(() => {
+        context.dispatch('getIncomeItems');
+      });
+    },
+    postExpenseItem (context, item) {
+      axios.post('http://localhost:8000/expenses/', item)
+      .then(() => {
+        context.dispatch('getExpenseItems');
+      });
+    },
+  },
   mutations: {
+    storeSetBudget(state, newItems) {
+      state.budget = [...newItems];
+    },
+    storeSetBudgetError(state, error) {
+      console.error(error);
+    },
+
+    storeSetCategories(state, newItems) {
+      state.categories = [...newItems];
+    },
+    storeSetCategoriesError(state, error) {
+      console.error(error);
+    },
+
+    storeSetIncome(state, newItems) {
+      state.income = [...newItems];
+    },
+    storeSetIncomeError(state, error) {
+      console.error(error);
+    },
+
+    storeSetExpenses(state, newItems) {
+      state.expenses = [...newItems];
+    },
+    storeSetExpensesError(state, error) {
+      console.error(error);
+    },
+
     addBudget (state, newItem) {
       const id = uuidv4();
       state.budget = [
