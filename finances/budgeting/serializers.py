@@ -22,6 +22,8 @@ class ExpenseSerializer(serializers.ModelSerializer):
     fields = ['id', 'amount', 'category', 'date', 'description']
 
 class BudgetItemSerializer(serializers.ModelSerializer):
+  time_period = serializers.DateField(format='%m/%Y')
+
   class Meta:
     model = BudgetItem
     fields = '__all__'
