@@ -8,7 +8,9 @@
       <div class='row' style='margin-top:2rem'>
         <div class='col col-auto'>
           <div class='nav-items'>
-            <router-link class='nav-item' to='/'>Overview</router-link>
+            <router-link class='nav-item' to='/'>
+              Overview
+            </router-link>
             <router-link class='nav-item' to='/budget'>Budget</router-link>
             <router-link class='nav-item' to='/expenses'>Expenses</router-link>
             <router-link class='nav-item' to='/income'>Income</router-link>
@@ -116,9 +118,26 @@ body {
   text-decoration: none;
   border-bottom: 0.5px solid #a0a0a0;
   padding: 0.25rem 1rem;
+  position: relative;
+  color: black;
 }
 .nav-item:last-child {
   border-bottom: none;
+}
+.nav-item:first-child, .nav-item:first-child::before {
+  border-top-left-radius: 5px;
+}
+.nav-item:last-child, .nav-item:last-child::before {
+  border-bottom-left-radius: 5px;
+}
+.router-link-exact-active::before {
+  position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 3px;
+	content: "";
+	background-color: #1f89df;
 }
 
 </style>
