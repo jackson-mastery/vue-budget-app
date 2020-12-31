@@ -4,9 +4,9 @@
         <table>
             <tr class='data-table--row' v-bind:key='item.id' v-for='item in budget'>
                 <td style='min-width: 20%;'>${{ item.amount }}</td>
-                <td>{{ categories[item.category] }}</td>
+                <td v-if='categories' >{{ categories[item.category] }}</td>
                 <td>{{ item.description }}</td>
-                <td><button @click='this.$store.commit(delBUdget, item.id)'>x</button> </td>
+                <td><button @click="this.$store.dispatch('deleteBudgetItem', item.id)">x</button> </td>
             </tr>
         </table>
         <label for='budget-amount'>Amount</label>
@@ -35,15 +35,18 @@ export default {
             return this.$store.state.budget;
         },
         categories () {
+            if (this.$store.state.categories == null) {
+                return this.$store.state.categories;
+            }
             // We don't want 'income' categories
             const filteredCategories = this.$store.state.categories.filter(category => {return category.cat_type === 2;});
-            // Make a lookup table to make displaying category names easier
+            // Create a lookup table to make displaying category names easier
             const categoryMap = {};
             for (const category of filteredCategories) {
                 categoryMap[category.id] = category.name;
             }
             return categoryMap;
-        }
+        },
     },
     data () {
         return {

@@ -71,6 +71,24 @@ const store = createStore({
         context.dispatch('getExpenseItems');
       });
     },
+    deleteBudgetItem (context, id) {
+      axios.delete(`http://localhost:8000/budget_items/${id}/`)
+      .then(() => {
+        context.dispatch('getBudgetItems');
+      });
+    },
+    deleteIncomeItem (context, id) {
+      axios.delete(`http://localhost:8000/income/${id}/`)
+      .then(() => {
+        context.dispatch('getIncomeItems');
+      });
+    },
+    deleteExpenseItem (context, id) {
+      axios.delete(`http://localhost:8000/expenses/${id}/`)
+      .then(() => {
+        context.dispatch('getExpenseItems');
+      });
+    }
   },
   mutations: {
     storeSetBudget(state, newItems) {

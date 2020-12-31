@@ -25,7 +25,7 @@
 <script>
 export default {
   name: 'App',
-  beforeMount() {
+  created () {
     this.$store.dispatch('init');
   }
 }
