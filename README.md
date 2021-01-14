@@ -27,7 +27,8 @@ Set up the local database
 ```
 cd finances
 python manage.py migrate
-python manage.py loaddata simple_init.json # If you want to initialize the database with some data 
+# If you want to initialize the database with some data
+python manage.py loaddata simple_init.json  
 ```
 
 
