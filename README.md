@@ -1,9 +1,37 @@
 # budget-app
 
 ## Project setup
+
+### To setup the Vue frontend:
+
 ```
 npm install
 ```
+
+### To setup the Python backend:
+
+Create a Python virtual environment, if desired:
+
+```
+python -m venv venv
+```
+
+Install the python dependencies
+
+```
+pip install -r requirements.txt
+```
+
+Set up the local database
+
+```
+cd finances
+python manage.py migrate
+python manage.py loaddata simple_init.json # If you want to initialize the database with some data 
+```
+
+
+## Running the frontend
 
 ### Compiles and hot-reloads for development
 ```
@@ -22,3 +50,9 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## Running the backend
+
+```
+python manage.py runserver
+```
